@@ -1,17 +1,20 @@
-FROM node:13-alpine
+# Use lightweight Node.js base image
+FROM node:20-alpine
 
-ENV MONGO_DB_USERNAME=admin \
-    MONGO_DB_PWD=password
+# Set working directory inside container
+WORKDIR /usr/src/app
 
-RUN mkdir -p /home/app
+# Copy package.json and package-lock.json first to leverage Docker cache
+COPY app/package*.json ./
 
-COPY ./app /home/app
+# Install dependencies
+RUN npm ci --only=production
 
-# set default dir so that next commands executes in /home/app dir
-WORKDIR /home/app
+# Copy the rest of the app
+COPY app/ ./
 
-# will execute npm install in /home/app because of WORKDIR
-RUN npm install
+# Expose port your server listens on
+EXPOSE 3000
 
-# no need for /home/app/server.js because of WORKDIR
+# Default command to run the app
 CMD ["node", "server.js"]
