@@ -57,3 +57,8 @@ This project demonstrates hands-on experience with Docker, Docker Compose, and c
 
 ![](<app/images/docker desktop engine.png>)
 
+![alt text](<app/images/docker hub repo published docker image.png>)
+
+![alt text](<app/images/docker nexus server droplet.png>)
+
+
