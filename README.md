@@ -16,7 +16,7 @@ This project demonstrates hands-on experience with Docker, Docker Compose, and c
 <br/>
 
 ## Workflow 
-[Node.js App] → Dockerfile → Docker Image → [Docker Hub / Nexus / ECR] → Server → Docker Compose → Running Containers
+`[Node.js App]` → `Dockerfile` → `Docker Image` → `[Docker Hub / Nexus / ECR]` → `Server` → `Docker Compose` → `Running Containers`
 
 <br/>
 
