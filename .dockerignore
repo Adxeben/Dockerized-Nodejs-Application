@@ -1,0 +1,43 @@
+# Git and version control
+.git/
+.gitignore
+.gitattributes
+
+# Node.js / JavaScript
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json   # If you want to use the one from the build context (optional)
+.env
+.env.*
+*.log
+
+# Docker related
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# IDE and system files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build outputs and temporary files
+dist/
+build/
+coverage/
+.nyc_output/
+
+# CI / CD
+.github/
+.gitlab/
+.travis.yml
+
+# Local development files
+*.local
+*.secret
