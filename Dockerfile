@@ -11,7 +11,6 @@ RUN npm ci --only=production --no-audit --no-fund
 
 # -----------------------------------------------------------------------------
 # Final stage – reduces image size by discarding build-time cruft
-# (Single-stage is fine here; multi-stage shown for demonstration & future builds)
 FROM node:20-alpine
 
 # Install dumb-init to handle signals properly and avoid zombie processes
