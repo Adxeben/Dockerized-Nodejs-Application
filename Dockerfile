@@ -1,25 +1,36 @@
-# Build stage
+# ----------------------------
+# Build stage (prepare the app)
 FROM node:20-alpine AS builder
 
-# working dir for container- this is where copying goes to and command execution happens
+# Set the working directory inside the container.
+# All subsequent commands (COPY, RUN) will use this directory.
 WORKDIR /usr/src/app
 
-# copying dependency file to container dir and installing dependencies inside it
+# Copy only dependency files first.
+# This helps Docker cache the install step and avoid reinstalling on every build.
 COPY ./app/package*.json ./
-RUN npm ci --only=production
 
-# copying source file to container
+# Install only production dependencies (exclude devDependencies).
+RUN npm ci --omit=dev
+
+# Copy the rest of the application source code into the container.
 COPY ./app ./
 
-# --------------------------------
-# Run stage
+
+
+# ----------------------------
+# Run stage (final lightweight image)
 FROM node:20-alpine
 
+# Set the same working directory in the final container.
 WORKDIR /usr/src/app
 
-# Copy files from the builder stage into the current stage.
+# Copy the prepared app (code + installed dependencies) from the builder stage.
+# This avoids including unnecessary build files and keeps the image smaller.
 COPY --from=builder /usr/src/app .
 
+# Expose the port the app runs on.
 EXPOSE 3000
 
+# Start the application.
 CMD ["node", "server.js"]
