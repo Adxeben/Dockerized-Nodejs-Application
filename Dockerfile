@@ -1,6 +1,4 @@
-# ----------------------------
-# Build stage (prepare the app)
-FROM node:20-alpine AS builder
+FROM node:20-alpine 
 
 # Set the working directory inside the container.
 # All subsequent commands (COPY, RUN) will use this directory.
@@ -15,19 +13,6 @@ RUN npm ci --omit=dev
 
 # Copy the rest of the application source code into the container.
 COPY ./app ./
-
-
-
-# ----------------------------
-# Run stage (final lightweight image)
-FROM node:20-alpine
-
-# Set the same working directory in the final container.
-WORKDIR /usr/src/app
-
-# Copy the prepared app (code + installed dependencies) from the builder stage.
-# This avoids including unnecessary build files and keeps the image smaller.
-COPY --from=builder /usr/src/app .
 
 # Expose the port the app runs on.
 EXPOSE 3000
